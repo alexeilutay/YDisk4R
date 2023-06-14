@@ -13,4 +13,5 @@ Imports:
   dplyr,
   httr,
   purrr
-  
+URL: https://github.com/alexeilutay/YDisk4R
+BugReports: https://github.com/alexeilutay/YDisk4R/issues
