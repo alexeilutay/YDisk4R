@@ -8,6 +8,8 @@
 
 ### Функции
 
-- set_YD_oath - ищет значение YDisk в Global Environment или другое, начинающееся с OAuth y0_
-- get_YD_folders - возвращает список папок по указанному пути. По умолчанию, корневая папка Yandex Disk
+set_YD_oath() -- ищет значение YDisk в Global Environment или другое, начинающееся с OAuth y0_... Найденное значение использует в качестве токена для обращения к Yandex Disk.
 
+get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath()) -- возвращает список папок по указанному пути. По умолчанию, path -- корневая папка Yandex Disk.
+
+get_YD_files(path = "disk:/Загрузки/", YD_oath = set_YD_oath(), limit = 5)  -- возвращает список файлов по указанному пути. По умолчанию, path -- корневая папка Yandex Disk, а limit = 1000.

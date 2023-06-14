@@ -83,3 +83,55 @@ get_YD_folders <- function(path = "disk:/", YD_oath){
     return(NULL)
   }
 }
+
+
+#' Files present at the provided YDisk path
+#'
+#' @description `get_YD_files` returns a list of files at the path provided
+#' @import httr
+#' @import purrr
+#' @import dplyr
+#' @import stringr
+#'
+#' @details
+#' The path preset by default is disk:/ (root folder of your YDisk),
+#' set own path starting with disk:/. If there are no folders at the indicated path,
+#' the function return an empty tibble.
+#'
+#' @param path a path at YDisk, it should start with disk:/
+#' @param YD_oath an OAuth token for YDisk
+#' @param limit how many files to return
+#' @return a tibble
+#' @export
+#' @examples
+#' get_YD_files(YD_oath = set_YD_oath())
+#' get_YD_files(path = "disk:/Загрузки/", YD_oath = set_YD_oath(), limit = 5)
+get_YD_files <- function(path = "disk:/", YD_oath, limit = 1000){
+  if(grepl("^disk:\\/", path)){
+    files <- paste0("https://cloud-api.yandex.net/v1/disk/resources",
+                      "?path=", path ,"&limit=", limit) |>
+      httr::GET(httr::add_headers(Accept = "application/json",
+                                  Authorization = YD_oath)) |>
+      httr::content() |>
+      purrr::pluck("_embedded") |>
+      purrr::pluck("items")  |>
+      purrr::map_df(
+        ~dplyr::tibble(
+          name = .x |> purrr::pluck("name"),
+          type = .x |> purrr::pluck("type"),
+          yd_size = .x |> purrr::pluck("size"),
+          yd_created = .x |> purrr::pluck("created") |>
+            as.character() |> stringr::str_extract("\\d{4}-\\d{2}-\\d{2}"),
+          file = .x |> purrr::pluck("file")
+          )
+        )
+
+    if(nrow(files)==0){
+      print("looks like there are no files at the provided path")
+    }
+    return(files)
+  } else {
+    print("the path should start with disk:/")
+    return(NULL)
+  }
+}
