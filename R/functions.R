@@ -1,3 +1,5 @@
+utils::globalVariables(c("type"))
+
 #' Checks for YDisk token in the Global Environment
 #'
 #' @description `set_YD_oath` checks if OAuth token for Yandex Disk is set in the Global Environment
@@ -12,24 +14,24 @@
 #' set_YD_oath()
 
 set_YD_oath <- function(){
-  YD_oath <- Sys.getenv("YDisk")
-  if(YD_oath != ""){
+  ydoath <- Sys.getenv("YDisk")
+  if(ydoath != ""){
     print("There is YDisk variable is found in Global Environment. It will be used as OAuth token for Yandex Disk")
-    return(YD_oath)
+    return(ydoath)
   } else {
     genv <- Sys.getenv()[which(grepl("^OAuth y0_", Sys.getenv()))]
-    YD_oath <- as.character(genv)
+    ydoath <- as.character(genv)
     YD_cand <- names(genv)
-    if(YD_oath != ""){
+    if(ydoath != ""){
       cat(paste0("There is no YDisk variable in Global Environment, but ",
                    YD_cand, " variable is foudn -- it starts with OAuth y0_... and is probably ",
                    "the Yandex Disk OAuth token. You can run Sys.getenv(",YD_cand,") and check if this is true."))
-      return(YD_oath)
+      return(ydoath)
     } else {
       cat(paste0('There is no YDisk variable or anything similar in Global Environment. ',
                    'If you are going to use this package, Run file.edit("~/.Renviron") and',
                    ' set OAuth token there in a new line like YDisk=OAuth y0_...)'))
-      break()
+      return(NULL)
     }
   }
 }
@@ -53,7 +55,7 @@ set_YD_oath <- function(){
 #' @export
 #' @examples
 #' get_YD_folders(YD_oath = set_YD_oath())
-#' get_YD_folders(path = "disk:/my_project_X/", YD_oath = set_YD_oath())
+#' get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
 get_YD_folders <- function(path = "disk:/", YD_oath){
   if(grepl("^disk:\\/", path)){
     folders <- paste0("https://cloud-api.yandex.net/v1/disk/resources",
@@ -78,6 +80,6 @@ get_YD_folders <- function(path = "disk:/", YD_oath){
     return(folders)
   } else {
     print("the path should start with disk:/")
-    break()
+    return(NULL)
   }
 }

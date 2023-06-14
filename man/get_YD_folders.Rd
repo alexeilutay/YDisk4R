@@ -24,5 +24,5 @@ the function return an empty tibble.
 }
 \examples{
 get_YD_folders(YD_oath = set_YD_oath())
-get_YD_folders(path = "disk:/my_project_X/", YD_oath = set_YD_oath())
+get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
 }
