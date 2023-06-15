@@ -4,14 +4,14 @@
 \alias{get_YD_files}
 \title{Files present at the provided YDisk path}
 \usage{
-get_YD_files(path = "disk:/", limit = 25, YD_oath)
+get_YD_files(path = "disk:/", limit = 25, token)
 }
 \arguments{
 \item{path}{a path at YDisk, it should start with disk:/}
 
 \item{limit}{how many files to return, by default 25}
 
-\item{YD_oath}{an OAuth token for YDisk}
+\item{token}{an OAuth token for YDisk}
 }
 \value{
 a tibble
@@ -26,7 +26,8 @@ the function return an empty tibble.
 }
 \examples{
 \dontrun{
-get_YD_files(YD_oath = set_YD_oath())
-get_YD_files(path = "disk:/Загрузки/", limit = 100, YD_oath = set_YD_oath())
+yd_oauth <- set_YD_oauth()
+get_YD_files(token = set_YD_oauth())
+get_YD_files(path = "disk:/Загрузки/", limit = 100, token = yd_oauth)
 }
 }

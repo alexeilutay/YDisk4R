@@ -3,7 +3,7 @@
 export(get_YD_files)
 export(get_YD_folders)
 export(my_public_files)
-export(set_YD_oath)
+export(set_YD_oauth)
 export(upload_file_2YD)
 import(dplyr)
 import(httr)

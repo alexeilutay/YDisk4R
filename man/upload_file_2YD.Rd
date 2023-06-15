@@ -9,7 +9,7 @@ upload_file_2YD(
   yd_fname = NULL,
   disk_fname,
   overwrite = FALSE,
-  YD_oath
+  token
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ upload_file_2YD(
 
 \item{overwrite}{if the file should be overwritten (by defaul = FALSE)}
 
-\item{YD_oath}{an OAuth token for YDisk}
+\item{token}{an OAuth token for YDisk}
 }
 \description{
 \code{upload_file_2YD} uploads the files to the folder of YD
@@ -31,7 +31,8 @@ The function uploads the file from hard disk to the specified folder (path) of Y
 }
 \examples{
 \dontrun{
+yd_oauth <- set_YD_oauth()
 upload_file_2YD(path = "disk:/Загрузки/", disk_fname = "../../bookmarks.html",
-               overwrite = TRUE, YD_oath = set_YD_oath())
+               overwrite = TRUE, token = yd_oauth)
 }
 }

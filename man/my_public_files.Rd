@@ -4,12 +4,12 @@
 \alias{my_public_files}
 \title{Get a list of Public Files}
 \usage{
-my_public_files(limit = 100, YD_oath)
+my_public_files(limit = 100, token)
 }
 \arguments{
 \item{limit}{how many files to return, by default 100}
 
-\item{YD_oath}{an OAuth token for YDisk}
+\item{token}{an OAuth token for YDisk}
 }
 \value{
 a dataframe
@@ -21,5 +21,5 @@ a dataframe
 The function returns a dataframe with all the details for your public files
 }
 \examples{
-my_public_files(limit = 1000, YD_oath = set_YD_oath())
+my_public_files(limit = 1000, token = set_YD_oauth())
 }
