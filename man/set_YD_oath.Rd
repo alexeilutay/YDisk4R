@@ -17,5 +17,7 @@ First, the function seeks the YDisk in Global Environment. If YDisk is absent in
 it checks if there is a variable starting with OAuth y0_ and takes it as YD OAuth.
 }
 \examples{
+\dontrun{
 set_YD_oath()
+}
 }

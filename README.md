@@ -3,9 +3,10 @@ YDisk4R – набор R функций для работы с Yandex Disk
 Лутай А.В.
 2023-06-15
 
-  - [Установка](#установка)
-  - [Перечень функций](#перечень-функций)
-  - [Обратная связь](#обратная-связь)
+- <a href="#установка" id="toc-установка">Установка</a>
+- <a href="#перечень-функций" id="toc-перечень-функций">Перечень
+  функций</a>
+- <a href="#обратная-связь" id="toc-обратная-связь">Обратная связь</a>
 
 ### Установка
 
@@ -27,56 +28,67 @@ OAuth](https://yandex.ru/dev/id/doc/ru/register-client) и принять
 домашней директории компьютера в виде текстового файл), но… who cares,
 да?
 
-  - открыть file.edit(“\~/.Renviron”)
+- открыть file.edit(“\~/.Renviron”)
 
-  - записать токен в строке вида YDisk=OAuth y0\_…… (не забудьте о
-    переносе строки в конце)
+- записать токен в строке вида YDisk=OAuth y0\_…… (не забудьте о
+  переносе строки в конце)
 
-  - сохранить файл “\~/.Renviron”
+- сохранить файл “\~/.Renviron”
 
-**set\_YD\_oath**
+**set_YD_oath**
 
 Функция ищет значение YDisk в Global Environment или другое,
-начинающееся с OAuth y0\_… Найденное значение использует в
-качестве токена для обращения к Yandex Disk.
+начинающееся с OAuth y0\_… Найденное значение использует в качестве
+токена для обращения к Yandex Disk.
 
 ``` r
-set_YD_oath()
+YD_oath <- set_YD_oath()
 ```
 
------
+------------------------------------------------------------------------
 
-**get\_YD\_folders**
+**get_YD_folders**
 
 Возвращает список папок по указанному пути. По умолчанию, path -
 корневая папка Yandex Disk, limit = 25.
 
-    get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
+``` r
+get_YD_folders(path = "disk:/Загрузки/", set_YD_oath())
+```
 
------
+------------------------------------------------------------------------
 
-**get\_YD\_files**
+**get_YD_files**
 
 Возвращает список файлов по указанному пути. По умолчанию, path -
 корневая папка Yandex Disk, а limit = 25.
 
 ``` r
-get_YD_files(path = "disk:/Загрузки/", YD_oath = set_YD_oath(), limit = 5)
+get_YD_files(path = "disk:/Загрузки/", YD_oath = YD_oath, limit = 5)
 ```
 
------
+------------------------------------------------------------------------
 
-**upload\_file\_2YD**
+**upload_file_2YD**
 
 Загружает файл в указанную папку Yandex Disk.
 
 ``` r
-get_YD_files(path = "disk:/Загрузки/", 
-             disk_fname = "../../bookmarks.html", 
-             overwrite = TRUE, YD_oath = set_YD_oath())
+upload_file_2YD(path = "disk:/Загрузки/", 
+                disk_fname = "../../bookmarks.html", 
+                 overwrite = TRUE, YD_oath = set_YD_oath())
 ```
 
 Выводит статус загрузки – если видите 201, значит файл на месте.
+
+**my_public_files**
+
+Возвращает полный список public-файлов со всеми деталями в виде
+dataframe.
+
+``` r
+my_public_files(limit = 100, YDisk4R::set_YD_oath())
+```
 
 ## Обратная связь
 

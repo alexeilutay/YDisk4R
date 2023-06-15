@@ -30,6 +30,8 @@ upload_file_2YD(
 The function uploads the file from hard disk to the specified folder (path) of YD.
 }
 \examples{
-get_YD_files(path = "disk:/Загрузки/", disk_fname = "../../bookmarks.html",
-             overwrite = TRUE, YD_oath = set_YD_oath())
+\dontrun{
+upload_file_2YD(path = "disk:/Загрузки/", disk_fname = "../../bookmarks.html",
+               overwrite = TRUE, YD_oath = set_YD_oath())
+}
 }

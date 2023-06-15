@@ -11,7 +11,9 @@ utils::globalVariables(c("type"))
 #' @return a string or NULL with warning
 #' @export
 #' @examples
+#'\dontrun{
 #' set_YD_oath()
+#' }
 set_YD_oath <- function(){
   ydoath <- Sys.getenv("YDisk")
   if(ydoath != ""){
@@ -54,8 +56,10 @@ set_YD_oath <- function(){
 #' @return a tibble
 #' @export
 #' @examples
+#'\dontrun{
 #' get_YD_folders(YD_oath = set_YD_oath())
 #' get_YD_folders(path = "disk:/Загрузки/", limit = 5, YD_oath = set_YD_oath())
+#' }
 get_YD_folders <- function(path = "disk:/", limit = 25, YD_oath){
   if(grepl("^disk:\\/", path)){
     folders <- paste0("https://cloud-api.yandex.net/v1/disk/resources",
@@ -104,8 +108,10 @@ get_YD_folders <- function(path = "disk:/", limit = 25, YD_oath){
 #' @return a tibble
 #' @export
 #' @examples
+#'\dontrun{
 #' get_YD_files(YD_oath = set_YD_oath())
 #' get_YD_files(path = "disk:/Загрузки/", limit = 100, YD_oath = set_YD_oath())
+#' }
 get_YD_files <- function(path = "disk:/", limit = 25, YD_oath){
   if(grepl("^disk:\\/", path)){
     files <- paste0("https://cloud-api.yandex.net/v1/disk/resources",
@@ -154,8 +160,10 @@ get_YD_files <- function(path = "disk:/", limit = 25, YD_oath){
 #' @export
 #'
 #' @examples
-#' get_YD_files(path = "disk:/Загрузки/", disk_fname = "../../bookmarks.html",
-#'              overwrite = TRUE, YD_oath = set_YD_oath())
+#'\dontrun{
+#'upload_file_2YD(path = "disk:/Загрузки/", disk_fname = "../../bookmarks.html",
+#'                overwrite = TRUE, YD_oath = set_YD_oath())
+#'}
 upload_file_2YD <- function(path = "disk:/", yd_fname = NULL, disk_fname,
                             overwrite=FALSE, YD_oath){
   if(is.null(yd_fname)){ yd_fname <- stringr::str_extract(disk_fname, "[^\\/]+$") }
@@ -172,4 +180,38 @@ upload_file_2YD <- function(path = "disk:/", yd_fname = NULL, disk_fname,
   print("the status 201 means the file has been uploaded")
 }
 
+
+#' Get a list of Public Files
+#'
+#' @description `my_public_files` uploads the files to the folder of YD
+#' @import httr
+#' @import purrr
+#' @details
+#' The function returns a dataframe with all the details for your public files
+#'
+#' @param limit how many files to return, by default 100
+#' @param YD_oath an OAuth token for YDisk
+#' @return a dataframe
+#' @export
+#'
+#' @examples
+#' my_public_files(limit = 1000, YD_oath = set_YD_oath())
+my_public_files <- function(limit = 100, YD_oath){
+  xfiles <- paste0("https://cloud-api.yandex.net/v1/disk/resources/public?limit=", limit) |>
+    httr::GET(httr::add_headers(Accept = "application/json", Authorization = YD_oath)) |>
+    httr::content() |>
+    purrr::pluck("items")
+
+  check <- function(x,name){
+    # to remove the elements named `sizes` (ref. https://stackoverflow.com/a/54777781)
+    m = names(x) %in% name
+    x = if(any(m)) x[!m] else x
+    if(is.list(x)) sapply(x,check,name)
+    else x
+  }
+
+  my_public_files_df <- xfiles |>
+    purrr::map_df(~check(.x, "sizes") |> purrr::flatten())
+  return(my_public_files_df)
+}
 

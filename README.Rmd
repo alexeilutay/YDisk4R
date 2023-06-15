@@ -35,7 +35,7 @@ devtools::install_github("alexeilutay/YDisk4R")
 Функция ищет значение YDisk в Global Environment или другое, начинающееся с OAuth y0_... Найденное значение использует в качестве токена для обращения к Yandex Disk.
 
 ```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
-set_YD_oath()
+YD_oath <- set_YD_oath()
 ```
 
 ***
@@ -44,8 +44,8 @@ set_YD_oath()
 
 Возвращает список папок по указанному пути. По умолчанию, path - корневая папка Yandex Disk, limit = 25.
 
-```
-get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
+```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
+get_YD_folders(path = "disk:/Загрузки/", set_YD_oath())
 ```
 ***
 
@@ -54,7 +54,7 @@ get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
 Возвращает список файлов по указанному пути. По умолчанию, path - корневая папка Yandex Disk, а limit = 25.
 
 ```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
-get_YD_files(path = "disk:/Загрузки/", YD_oath = set_YD_oath(), limit = 5)
+get_YD_files(path = "disk:/Загрузки/", YD_oath = YD_oath, limit = 5)
 ```
 ***
 
@@ -63,12 +63,20 @@ get_YD_files(path = "disk:/Загрузки/", YD_oath = set_YD_oath(), limit = 
 Загружает файл в указанную папку Yandex Disk.
 
 ```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
-get_YD_files(path = "disk:/Загрузки/", 
-             disk_fname = "../../bookmarks.html", 
-             overwrite = TRUE, YD_oath = set_YD_oath())
+upload_file_2YD(path = "disk:/Загрузки/", 
+                disk_fname = "../../bookmarks.html", 
+                 overwrite = TRUE, YD_oath = set_YD_oath())
 ```
 
 Выводит статус загрузки -- если видите 201, значит файл на месте. 
+
+**my_public_files**
+
+Возвращает полный список public-файлов со всеми деталями в виде dataframe.
+
+```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
+my_public_files(limit = 100, YDisk4R::set_YD_oath())
+```
 
 ## Обратная связь
 

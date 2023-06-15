@@ -25,6 +25,8 @@ set own path starting with disk:/. If there are no folders at the indicated path
 the function return an empty tibble.
 }
 \examples{
+\dontrun{
 get_YD_folders(YD_oath = set_YD_oath())
 get_YD_folders(path = "disk:/Загрузки/", limit = 5, YD_oath = set_YD_oath())
+}
 }

@@ -2,6 +2,7 @@
 
 export(get_YD_files)
 export(get_YD_folders)
+export(my_public_files)
 export(set_YD_oath)
 export(upload_file_2YD)
 import(dplyr)
