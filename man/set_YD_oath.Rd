@@ -7,14 +7,14 @@
 set_YD_oath()
 }
 \value{
-a string or an error
+a string or NULL with warning
 }
 \description{
-\code{set_YD_oath} checks if OAuth token for Yandex Disk is set in the Global Environment
+\code{set_YD_oath} tries to find Yandex Disk OAuth token in Global Environment
 }
 \details{
-If the OAuth token for Yandex Disk API is set in Global Environment as YDisk,
-or anything else there starts with OAuth y0_, the function returns it as the OAth token
+First, the function seeks the YDisk in Global Environment. If YDisk is absent in GE,
+it checks if there is a variable starting with OAuth y0_ and takes it as YD OAuth.
 }
 \examples{
 set_YD_oath()

@@ -4,10 +4,12 @@
 \alias{get_YD_folders}
 \title{Folders present at the provided YDisk path}
 \usage{
-get_YD_folders(path = "disk:/", YD_oath)
+get_YD_folders(path = "disk:/", limit = 25, YD_oath)
 }
 \arguments{
 \item{path}{a path at YDisk, it should start with disk:/}
+
+\item{limit}{how many folders to return, by default 25}
 
 \item{YD_oath}{an OAuth token for YDisk}
 }
@@ -24,5 +26,5 @@ the function return an empty tibble.
 }
 \examples{
 get_YD_folders(YD_oath = set_YD_oath())
-get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
+get_YD_folders(path = "disk:/Загрузки/", limit = 5, YD_oath = set_YD_oath())
 }

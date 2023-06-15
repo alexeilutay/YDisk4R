@@ -1,0 +1,75 @@
+---
+title: "YDisk4R -- набор R функций для работы с Yandex Disk"
+author: "Лутай А.В."
+output: 
+  github_document:
+    toc: yes
+    toc_depth: 4
+date: '2023-06-15'
+---
+
+### Установка
+
+```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
+devtools::install_github("alexeilutay/YDisk4R")
+```
+
+### Перечень функций
+
+Приведенные ниже примеры описывают не все возможности функций. 
+
+Перед началом работы рекомендуется [получить Yandex OAuth](https://yandex.ru/dev/id/doc/ru/register-client) и принять решение о том, где он будет храниться на компьютере.
+
+**Хранение в Renviron**
+
+Этот способ считается недостаточно безопасным (файл .Renviron хранится в домашней директории компьютера в виде текстового файл), но... who cares, да?  
+
+- открыть file.edit("~/.Renviron") 
+
+- записать токен в строке вида YDisk=OAuth y0_...... (не забудьте о переносе строки в конце)
+
+- сохранить файл "~/.Renviron"
+
+**set_YD_oath**
+
+Функция ищет значение YDisk в Global Environment или другое, начинающееся с OAuth y0_... Найденное значение использует в качестве токена для обращения к Yandex Disk.
+
+```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
+set_YD_oath()
+```
+
+***
+
+**get_YD_folders**
+
+Возвращает список папок по указанному пути. По умолчанию, path - корневая папка Yandex Disk, limit = 25.
+
+```
+get_YD_folders(path = "disk:/Загрузки/", YD_oath = set_YD_oath())
+```
+***
+
+**get_YD_files**
+
+Возвращает список файлов по указанному пути. По умолчанию, path - корневая папка Yandex Disk, а limit = 25.
+
+```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
+get_YD_files(path = "disk:/Загрузки/", YD_oath = set_YD_oath(), limit = 5)
+```
+***
+
+**upload_file_2YD**
+
+Загружает файл в указанную папку Yandex Disk.
+
+```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
+get_YD_files(path = "disk:/Загрузки/", 
+             disk_fname = "../../bookmarks.html", 
+             overwrite = TRUE, YD_oath = set_YD_oath())
+```
+
+Выводит статус загрузки -- если видите 201, значит файл на месте. 
+
+## Обратная связь
+
+Если сделаете pull request, постараюсь принять.
