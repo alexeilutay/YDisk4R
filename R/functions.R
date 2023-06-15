@@ -19,9 +19,9 @@ set_YD_oath <- function(){
     return(ydoath)
   } else {
     genv <- Sys.getenv()[which(grepl("^OAuth y0_", Sys.getenv()))]
-    ydoath <- as.character(genv)
-    YD_cand <- names(genv)
-    if(ydoath != ""){
+    if(!purrr::is_empty(genv)){
+      ydoath <- as.character(genv)
+      YD_cand <- names(genv)
       cat(paste0("YDisk is not set in Global Environment, but ",
                    YD_cand, " variable starts with OAuth y0_... and is probably ",
                    "how you store Yandex Disk OAuth token. You can run Sys.getenv(",YD_cand,") and check if this is true."))
