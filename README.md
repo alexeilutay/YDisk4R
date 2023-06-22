@@ -28,21 +28,21 @@ OAuth](https://yandex.ru/dev/id/doc/ru/register-client) и принять
 домашней директории компьютера в виде текстового файл), но… who cares,
 да?
 
-- открыть file.edit(“\~/.Renviron”)
+- открыть file.edit("\~/.Renviron")
 
 - записать токен в строке вида YDisk=OAuth y0\_…… (не забудьте о
   переносе строки в конце)
 
-- сохранить файл “\~/.Renviron”
+- сохранить файл "\~/.Renviron"
 
-**set_YD_oath**
+**set_YD_oauth**
 
 Функция ищет значение YDisk в Global Environment или другое,
 начинающееся с OAuth y0\_… Найденное значение использует в качестве
 токена для обращения к Yandex Disk.
 
 ``` r
-YD_oath <- set_YD_oath()
+YD_oauth <- set_YD_oauth()
 ```
 
 ------------------------------------------------------------------------
@@ -53,7 +53,7 @@ YD_oath <- set_YD_oath()
 корневая папка Yandex Disk, limit = 25.
 
 ``` r
-get_YD_folders(path = "disk:/Загрузки/", set_YD_oath())
+get_YD_folders(path = "disk:/Загрузки/", token = set_YD_oauth())
 ```
 
 ------------------------------------------------------------------------
@@ -64,7 +64,7 @@ get_YD_folders(path = "disk:/Загрузки/", set_YD_oath())
 корневая папка Yandex Disk, а limit = 25.
 
 ``` r
-get_YD_files(path = "disk:/Загрузки/", YD_oath = YD_oath, limit = 5)
+get_YD_files(path = "disk:/Загрузки/", limit = 5, token = set_YD_oauth())
 ```
 
 ------------------------------------------------------------------------
@@ -76,7 +76,7 @@ get_YD_files(path = "disk:/Загрузки/", YD_oath = YD_oath, limit = 5)
 ``` r
 upload_file_2YD(path = "disk:/Загрузки/", 
                 disk_fname = "../../bookmarks.html", 
-                 overwrite = TRUE, YD_oath = set_YD_oath())
+                 overwrite = TRUE, token = set_YD_oauth())
 ```
 
 Выводит статус загрузки – если видите 201, значит файл на месте.
@@ -87,7 +87,7 @@ upload_file_2YD(path = "disk:/Загрузки/",
 dataframe.
 
 ``` r
-my_public_files(limit = 100, YDisk4R::set_YD_oath())
+my_public_files(limit = 100, token = set_YD_oauth())
 ```
 
 ## Обратная связь
