@@ -61,7 +61,7 @@ set_YD_oauth <- function(){
 #' get_YD_folders(token = yd_oauth)
 #' get_YD_folders(path = "disk:/Загрузки/", limit = 5, token = set_YD_oauth())
 #' }
-get_YD_folders <- function(path = "disk:/", limit = 25, token){
+get_YD_folders <- function(path = "disk:/", limit = 100, token){
   if(grepl("^disk:\\/", path)){
     folders <- paste0("https://cloud-api.yandex.net/v1/disk/resources",
                       "?path=", path ,"&limit=", limit) |>
@@ -108,7 +108,7 @@ get_YD_folders <- function(path = "disk:/", limit = 25, token){
 #' get_YD_files(token = set_YD_oauth())
 #' get_YD_files(path = "disk:/Загрузки/", limit = 100, token = yd_oauth)
 #' }
-get_YD_files <- function(path = "disk:/", limit = 25, token){
+get_YD_files <- function(path = "disk:/", limit = 100, token){
   if(grepl("^disk:\\/", path)){
     xfiles <- paste0("https://cloud-api.yandex.net/v1/disk/resources",
                       "?path=", path ,"&limit=", limit) |>
