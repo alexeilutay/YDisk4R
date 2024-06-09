@@ -52,7 +52,7 @@ set_YD_oauth <- function(){
 #'
 #' @param path a path at YDisk, it should start with disk:/
 #' @param token an OAuth token for YDisk
-#' @param limit how many folders to return, by default 25
+#' @param limit how many folders to return, by default 100
 #' @return a tibble
 #' @export
 #' @examples
@@ -83,7 +83,6 @@ get_YD_folders <- function(path = "disk:/", limit = 100, token){
     return(NULL)
   }
 }
-
 
 #' Files present at the provided YDisk path
 #'
