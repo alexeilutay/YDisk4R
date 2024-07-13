@@ -163,7 +163,8 @@ upload_file_2YD <- function(path = "disk:/", yd_fname = NULL, disk_fname,
                             overwrite=FALSE, token){
   if(is.null(yd_fname)){
     yd_fname <- stringr::str_extract(disk_fname, "[^\\/]+$")
-    }
+  }
+  path <- gsub("[\\/]+", "/", path)
   xref <- httr::GET(paste0("https://cloud-api.yandex.net/v1/disk/resources/upload",
                      "?path=", paste0(path, yd_fname),
                      "&overwrite=", overwrite,

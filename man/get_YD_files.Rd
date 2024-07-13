@@ -4,7 +4,7 @@
 \alias{get_YD_files}
 \title{Files present at the provided YDisk path}
 \usage{
-get_YD_files(path = "disk:/", limit = 25, token)
+get_YD_files(path = "disk:/", limit = 100, token)
 }
 \arguments{
 \item{path}{a path at YDisk, it should start with disk:/}

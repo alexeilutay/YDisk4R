@@ -5,7 +5,7 @@ output:
   github_document:
     toc: yes
     toc_depth: 4
-date: '2024-06-09'
+date: '2024-07-13'
 ---
 
 ### Установка
@@ -51,6 +51,7 @@ yd_oauth <- set_YD_oath()
 ```{r echo=TRUE, eval = FALSE, message=FALSE, warning=FALSE}
 get_YD_folders(path = "disk:/Загрузки/", token = yd_oauth)
 ```
+
 ***
 
 **get_YD_files**

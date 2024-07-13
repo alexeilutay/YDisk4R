@@ -4,12 +4,12 @@
 \alias{get_YD_folders}
 \title{Folders present at the provided YDisk path}
 \usage{
-get_YD_folders(path = "disk:/", limit = 25, token)
+get_YD_folders(path = "disk:/", limit = 100, token)
 }
 \arguments{
 \item{path}{a path at YDisk, it should start with disk:/}
 
-\item{limit}{how many folders to return, by default 25}
+\item{limit}{how many folders to return, by default 100}
 
 \item{token}{an OAuth token for YDisk}
 }
