@@ -210,3 +210,63 @@ my_public_files <- function(limit = 100, token){
   return(xfiles)
 }
 
+#' Download a file from Yandex.Disk matching a pattern
+#'
+#' @description
+#' ydisk_download_file() retrieves a list of files from a specified directory on Yandex.Disk,
+#' filters them by a regular expression pattern, and downloads the single matching file
+#' to a local folder. After download, it verifies the file size to ensure integrity.
+#'
+#' @param yd_path Character string. The path to the directory on Yandex.Disk.
+#'   The path is automatically converted to UTF-8 and URL-encoded.
+#' @param yd_filename_pattern Character string. A regular expression pattern used to
+#'   filter filenames. The matching is performed with dplyr::str_detect().
+#' @param dest_folder Character string. The local directory path where the downloaded
+#'   file will be saved. The directory should exist; the function does not create it.
+#' @param yd_token Character string. YDisk4R::set_YD_oauth()
+#'
+#' @importFrom utils URLencode download.file
+#' @importFrom dplyr filter
+#' @importFrom stringr str_detect
+#'
+#' @return Invisibly returns `NULL`. Called for its side effect: downloading a file
+#'   and printing messages about the outcome.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Assuming yd_token is already set in your environment
+#' ydisk_download_file(
+#'   yd_path = "/Documents",
+#'   yd_filename_pattern = "2025.*\\.xlsx",
+#'   dest_folder = "~/Downloads/yd_downloads"
+#'   yd_token = YDisk4R::set_YD_oauth()
+#' )
+#' }
+#'
+#' @seealso [YDisk4R::get_YD_files()] for obtaining file listings,
+#'   [YDisk4R::set_YD_oauth()] for authentication.
+ydisk_download_file <- function(yd_path, yd_filename_pattern, dest_folder, yd_token){
+  files <- get_YD_files(token = yd_token, path = URLencode(enc2utf8(yd_path)))
+  if(nrow(files)>0){
+    files <- files |> filter(str_detect(name, yd_filename_pattern))
+    if(nrow(files)==1){
+      jfilename <- file.path(dest_folder, files$name[1])
+      if(!file.exists(jfilename)){
+        download.file(files$file[1], destfile = jfilename, quiet = T)
+        if(between(file.size(jfilename)/files$size[1], 0.98, 1.02)){
+          cat(paste0('the file ', jfilename, ' has been saved'))
+        }
+      } else {
+        cat(paste0('the file ', jfilename, ' already exists'))
+      }
+    }
+    if(nrow(files)==0){
+      cat(paste0('No file matches with the provided pattern {', yd_filename_pattern, '}. Try another pattern, check the path.'))
+    }
+    if(nrow(files)>1){
+      cat(paste0('There are >1 files matching the provided pattern {', yd_filename_pattern, '}. Try different pattern.'))
+    }
+  }
+}

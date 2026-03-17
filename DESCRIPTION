@@ -1,18 +1,15 @@
 Package: YDisk4R
-Title: A set of functions to deal with Yandex Disk  
-Version: 0.1.0
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
 Authors@R: 
-    person("Alexei", "Lutay", , "alexei.lutay@yandex.ru", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-1341-781X"))
-Description: The functions help to download and upload the files, using Yandex Disk as a storage for the large project files.
-License: MIT + file LICENSE
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Imports: 
-  dplyr,
-  httr,
-  purrr,
-  stringr
-URL: https://github.com/alexeilutay/YDisk4R
-BugReports: https://github.com/alexeilutay/YDisk4R/issues
+    dplyr,
+    httr,
+    purrr,
+    stringr
